@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using ProductsShop.Model.Core;
 using ProductsShop.Model.Data;
 using ProductsShop.View;
@@ -22,11 +23,17 @@ namespace ProductsShop.Presenter
             this.modelProduct = model_product;
             this.modelReader = model_reader;
 
-            //this.view.AddProductRequested += View_AddProductRequested; // подпись на событие добавления продукта
+            this.view.AddProductRequested += View_AddProductRequested; // подпись на событие добавления продукта
             //this.view.SaveDataInFile += View_SaveDataInFile;
             this.view.ReadDataFromFile += View_ReadDataFromFile;
             //this.view.DeleteProductRequested += View_DeleteProductRequested;
             this.view.DisplayProducts(modelProduct.GetProducts());
+           
+        }
+
+        private void View_AddProductRequested(object sender, EventArgs e)
+        {
+       
         }
 
         private void View_ReadDataFromFile(object sender, EventArgs e)

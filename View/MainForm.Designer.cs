@@ -28,18 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listViewProducts = new System.Windows.Forms.ListView();
             this.buttonFileRead = new System.Windows.Forms.Button();
+            this.buttonTest = new System.Windows.Forms.Button();
+            this.dataGridViewProducts = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProducts)).BeginInit();
             this.SuspendLayout();
-            // 
-            // listViewProducts
-            // 
-            this.listViewProducts.HideSelection = false;
-            this.listViewProducts.Location = new System.Drawing.Point(12, 79);
-            this.listViewProducts.Name = "listViewProducts";
-            this.listViewProducts.Size = new System.Drawing.Size(276, 253);
-            this.listViewProducts.TabIndex = 0;
-            this.listViewProducts.UseCompatibleStateImageBehavior = false;
             // 
             // buttonFileRead
             // 
@@ -51,23 +44,43 @@
             this.buttonFileRead.UseVisualStyleBackColor = true;
             this.buttonFileRead.Click += new System.EventHandler(this.buttonFileRead_Click);
             // 
+            // buttonTest
+            // 
+            this.buttonTest.Location = new System.Drawing.Point(169, 338);
+            this.buttonTest.Name = "buttonTest";
+            this.buttonTest.Size = new System.Drawing.Size(142, 77);
+            this.buttonTest.TabIndex = 2;
+            this.buttonTest.Text = "test";
+            this.buttonTest.UseVisualStyleBackColor = true;
+            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
+            // 
+            // dataGridViewProducts
+            // 
+            this.dataGridViewProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewProducts.Location = new System.Drawing.Point(12, 12);
+            this.dataGridViewProducts.Name = "dataGridViewProducts";
+            this.dataGridViewProducts.Size = new System.Drawing.Size(473, 320);
+            this.dataGridViewProducts.TabIndex = 3;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dataGridViewProducts);
+            this.Controls.Add(this.buttonTest);
             this.Controls.Add(this.buttonFileRead);
-            this.Controls.Add(this.listViewProducts);
             this.Name = "MainForm";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProducts)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ListView listViewProducts;
         private System.Windows.Forms.Button buttonFileRead;
+        private System.Windows.Forms.Button buttonTest;
+        private System.Windows.Forms.DataGridView dataGridViewProducts;
     }
 }
 

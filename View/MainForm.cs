@@ -18,14 +18,7 @@ namespace ProductsShop
         public MainForm()
         {
             InitializeComponent();
-            if (listViewProducts.Columns.Count == 0)
-            {
-                listViewProducts.Columns.Add("ID", 50);
-                listViewProducts.Columns.Add("Название", 150);
-                listViewProducts.Columns.Add("Цена", 100);
-                listViewProducts.Columns.Add("Тип", 100);
-                listViewProducts.Columns.Add("Ед. изм.", 80);
-            }
+            
         }
         public event EventHandler AddProductRequested;
         public event EventHandler SaveDataInFile;
@@ -33,25 +26,82 @@ namespace ProductsShop
         public event EventHandler DeleteProductRequested;
         public void DisplayProducts(List<Product> products)
         {
-            listViewProducts.Items.Clear();
-           
+            // Настройка DataGridView
+            dataGridViewProducts.AutoGenerateColumns = false;
+            dataGridViewProducts.RowHeadersVisible = false;
+            dataGridViewProducts.AllowUserToAddRows = false;
+            dataGridViewProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            // Очистка старых колонок
+            dataGridViewProducts.Columns.Clear();
+
+            // Создаем колонки
+            dataGridViewProducts.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                Name = "Id",
+                HeaderText = "ID",
+                DataPropertyName = "Id",
+                Width = 50
+            });
+
+            dataGridViewProducts.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                Name = "Name",
+                HeaderText = "Название",
+                DataPropertyName = "Name",
+                Width = 150,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            });
+
+            dataGridViewProducts.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                Name = "Price",
+                HeaderText = "Цена",
+                Width = 80,
+            });
+
+            dataGridViewProducts.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                Name = "Type",
+                HeaderText = "Тип",
+                Width = 120
+            });
+
+            dataGridViewProducts.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                Name = "Unit",
+                HeaderText = "Ед.изм.",
+                Width = 80
+            });
+
+            // Заполняем данные
+            var rows = new List<DataGridViewRow>();
             foreach (var product in products)
             {
-                ListViewItem item = new ListViewItem(product.Id.ToString());
-                item.SubItems.Add(product.Name);
-                item.SubItems.Add(product.Price.ToString("C")); // Формат валюты
-                item.SubItems.Add(product.IsWeighted ? "Взвешиваемый" : "Штучный");
-                item.SubItems.Add(product.IsWeighted ? "кг" : "шт.");
-                item.BackColor = product.IsWeighted ? Color.LightBlue : Color.LightGreen;
+                var row = new DataGridViewRow();
+                row.CreateCells(dataGridViewProducts);
 
-                listViewProducts.Items.Add(item);
+                row.Cells[0].Value = product.Id;
+                row.Cells[1].Value = product.Name;
+                row.Cells[2].Value = product.Price + " ₽";
+                row.Cells[3].Value = product.IsWeighted ? "Взвешиваемый" : "Штучный";
+                row.Cells[4].Value = product.IsWeighted ? "кг" : "шт.";
+
+                row.DefaultCellStyle.BackColor = product.IsWeighted ? Color.Lavender : Color.Honeydew;
+                rows.Add(row);
             }
 
-            // Автоподбор ширины колонок
-            foreach (ColumnHeader column in listViewProducts.Columns)
+            // Добавляем все строки сразу (для производительности)
+            dataGridViewProducts.Rows.AddRange(rows.ToArray());
+
+            // Настраиваем заголовки
+            dataGridViewProducts.EnableHeadersVisualStyles = false;
+            dataGridViewProducts.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle()
             {
-                column.Width = -2; // Автоширина по содержимому
-            }
+                BackColor = Color.LightGray,
+                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Alignment = DataGridViewContentAlignment.MiddleCenter
+            };
         }
         public void ShowMessage(string message)
         {
@@ -68,10 +118,13 @@ namespace ProductsShop
             openFileDialog.Filter = "(*.txt)|*.txt|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                //ReadDataFromFile?.Invoke(openFileDialog.FileName, EventArgs.Empty);
-                FileReader fileReader = new FileReader();
-                DisplayProducts(fileReader.ReadProductsFromFile(openFileDialog.FileName));
+                ReadDataFromFile?.Invoke(openFileDialog.FileName, EventArgs.Empty);
             }
+        }
+
+        private void buttonTest_Click(object sender, EventArgs e)
+        {
+            AddProductRequested?.Invoke(this, EventArgs.Empty);
         }
     }
 }

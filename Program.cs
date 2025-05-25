@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ProductsShop.Model.Core;
+using ProductsShop.Model.Data;
+using ProductsShop.Presenter;
 
 namespace ProductsShop
 {
@@ -16,7 +19,11 @@ namespace ProductsShop
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            var view = new MainForm();
+            var model_product = new Cart();
+            var model_reader = new FileReader();
+            var presenter = new ProductPresenter(view, model_product, model_reader);
+            Application.Run(view);
         }
     }
 }
