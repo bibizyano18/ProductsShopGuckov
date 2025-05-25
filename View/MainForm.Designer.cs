@@ -1,6 +1,6 @@
 ﻿namespace ProductsShop
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,13 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.listViewProducts = new System.Windows.Forms.ListView();
+            this.SuspendLayout();
+            // 
+            // listViewProducts
+            // 
+            this.listViewProducts.HideSelection = false;
+            this.listViewProducts.Location = new System.Drawing.Point(12, 79);
+            this.listViewProducts.Name = "listViewProducts";
+            this.listViewProducts.Size = new System.Drawing.Size(276, 253);
+            this.listViewProducts.TabIndex = 0;
+            this.listViewProducts.UseCompatibleStateImageBehavior = false;
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.listViewProducts);
+            this.Name = "MainForm";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.ListView listViewProducts;
     }
 }
 
