@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.listViewProducts = new System.Windows.Forms.ListView();
+            this.buttonFileRead = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listViewProducts
@@ -40,11 +41,22 @@
             this.listViewProducts.TabIndex = 0;
             this.listViewProducts.UseCompatibleStateImageBehavior = false;
             // 
+            // buttonFileRead
+            // 
+            this.buttonFileRead.Location = new System.Drawing.Point(12, 338);
+            this.buttonFileRead.Name = "buttonFileRead";
+            this.buttonFileRead.Size = new System.Drawing.Size(142, 77);
+            this.buttonFileRead.TabIndex = 1;
+            this.buttonFileRead.Text = "Прочитать файл";
+            this.buttonFileRead.UseVisualStyleBackColor = true;
+            this.buttonFileRead.Click += new System.EventHandler(this.buttonFileRead_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonFileRead);
             this.Controls.Add(this.listViewProducts);
             this.Name = "MainForm";
             this.Text = "Form1";
@@ -55,6 +67,7 @@
         #endregion
 
         private System.Windows.Forms.ListView listViewProducts;
+        private System.Windows.Forms.Button buttonFileRead;
     }
 }
 
