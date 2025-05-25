@@ -17,6 +17,7 @@ namespace ProductsShop.Presenter
         private readonly Cart modelProduct;
         private readonly FileReader modelReader;
 
+
         public ProductPresenter(IProductView view, Cart model_product, FileReader model_reader)
         {
             this.view = view;
@@ -33,7 +34,12 @@ namespace ProductsShop.Presenter
 
         private void View_AddProductRequested(object sender, EventArgs e)
         {
-       
+            if (sender != null)
+            {
+                int index = (int)sender;
+                view.ShowMessage(index.ToString());
+            }
+            
         }
 
         private void View_ReadDataFromFile(object sender, EventArgs e)

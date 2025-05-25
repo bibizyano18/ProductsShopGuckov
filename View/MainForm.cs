@@ -18,8 +18,9 @@ namespace ProductsShop
         public MainForm()
         {
             InitializeComponent();
-            
+  
         }
+        public int DataGridViewRowIndex;
         public event EventHandler AddProductRequested;
         public event EventHandler SaveDataInFile;
         public event EventHandler ReadDataFromFile;
@@ -93,9 +94,8 @@ namespace ProductsShop
 
             // Добавляем все строки сразу (для производительности)
             dataGridViewProducts.Rows.AddRange(rows.ToArray());
-
-            // Настраиваем заголовки
             dataGridViewProducts.EnableHeadersVisualStyles = false;
+            dataGridViewProducts.ReadOnly = true;
             dataGridViewProducts.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle()
             {
                 BackColor = Color.LightGray,
@@ -122,9 +122,22 @@ namespace ProductsShop
             }
         }
 
-        private void buttonTest_Click(object sender, EventArgs e)
+        private void buttonAddToCart_Click(object sender, EventArgs e)
         {
-            AddProductRequested?.Invoke(this, EventArgs.Empty);
+            AddProductRequested?.Invoke(DataGridViewRowIndex, EventArgs.Empty);
+        }
+
+        private void dataGridViewProducts_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridView gv = sender as DataGridView;
+            if (gv != null && gv.SelectedRows.Count > 0)
+            {
+                DataGridViewRow row = gv.SelectedRows[0];
+                if (row != null)
+                {
+                    DataGridViewRowIndex = row.Index;
+                }
+            }
         }
     }
 }
