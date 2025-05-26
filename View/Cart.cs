@@ -11,7 +11,7 @@ using ProductsShop.Model;
 
 namespace ProductsShop.View
 {
-    public partial class Cart : Form, ICartView
+    public partial class Cart : Form, ICartView, IPaymentView
     {
         public Cart()
         {
@@ -21,6 +21,7 @@ namespace ProductsShop.View
         private int DataGridViewRowIndex = -1;
         private List<Product> cartProducts;
         public event EventHandler DeleteProductRequested;
+        public event EventHandler MakePayment;
 
         public void DisplayProducts(List<Product> cartItems)
         {
@@ -89,7 +90,7 @@ namespace ProductsShop.View
                 );
 
                 dataGridViewCart.Rows[lastRowIndex].DefaultCellStyle.Font =
-                    new Font("Segoe UI", 9, FontStyle.Bold);
+                    new Font("Segoe UI", 11, FontStyle.Bold);
             }
 
             // Настройка внешнего вида
@@ -159,6 +160,13 @@ namespace ProductsShop.View
         {
             labelCart.Text = $"Корзина: {count}";
             labelCart.ForeColor = count == 0 ? Color.Gray : Color.Black;
+        }
+
+        public void UpdateBalance(decimal cardMoney, decimal cashMoney, decimal bonusMoney)
+        {
+            labelCard.Text = $"Карта: {cardMoney} руб.";
+            labelCash.Text = $"Наличка: {cashMoney} руб.";
+            labelBonus.Text = $"Бонусы: {bonusMoney} руб.";
         }
     }
 }

@@ -38,7 +38,7 @@
             // 
             // buttonFileRead
             // 
-            this.buttonFileRead.Location = new System.Drawing.Point(12, 338);
+            this.buttonFileRead.Location = new System.Drawing.Point(12, 357);
             this.buttonFileRead.Name = "buttonFileRead";
             this.buttonFileRead.Size = new System.Drawing.Size(142, 77);
             this.buttonFileRead.TabIndex = 1;
@@ -48,7 +48,7 @@
             // 
             // buttonTest
             // 
-            this.buttonTest.Location = new System.Drawing.Point(160, 338);
+            this.buttonTest.Location = new System.Drawing.Point(178, 357);
             this.buttonTest.Name = "buttonTest";
             this.buttonTest.Size = new System.Drawing.Size(142, 77);
             this.buttonTest.TabIndex = 2;
@@ -59,7 +59,7 @@
             // dataGridViewProducts
             // 
             this.dataGridViewProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewProducts.Location = new System.Drawing.Point(12, 12);
+            this.dataGridViewProducts.Location = new System.Drawing.Point(12, 31);
             this.dataGridViewProducts.Name = "dataGridViewProducts";
             this.dataGridViewProducts.Size = new System.Drawing.Size(473, 320);
             this.dataGridViewProducts.TabIndex = 3;
@@ -70,7 +70,7 @@
             this.labelCart.AutoSize = true;
             this.labelCart.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.labelCart.ForeColor = System.Drawing.Color.Gray;
-            this.labelCart.Location = new System.Drawing.Point(604, 12);
+            this.labelCart.Location = new System.Drawing.Point(12, 4);
             this.labelCart.Name = "labelCart";
             this.labelCart.Size = new System.Drawing.Size(106, 24);
             this.labelCart.TabIndex = 4;
@@ -78,7 +78,7 @@
             // 
             // buttonCart
             // 
-            this.buttonCart.Location = new System.Drawing.Point(579, 49);
+            this.buttonCart.Location = new System.Drawing.Point(343, 357);
             this.buttonCart.Name = "buttonCart";
             this.buttonCart.Size = new System.Drawing.Size(142, 77);
             this.buttonCart.TabIndex = 5;
@@ -90,7 +90,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(500, 450);
             this.Controls.Add(this.buttonCart);
             this.Controls.Add(this.labelCart);
             this.Controls.Add(this.dataGridViewProducts);

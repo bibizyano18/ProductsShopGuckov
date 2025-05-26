@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ProductsShop.View
 {
-    internal interface IPaymentView
+    public interface IPaymentView
     {
+        void UpdateBalance(decimal cardMoney, decimal cashMoney, decimal bonusMoney);
+
+        event EventHandler MakePayment;
     }
 }

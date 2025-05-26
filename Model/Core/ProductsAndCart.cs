@@ -10,7 +10,6 @@ namespace ProductsShop.Model.Core
     {
         private List<Product> Products;
         private List<Product> CartProducts;
-        
         public ProductsAndCart() {
             Products = new List<Product>(); 
             CartProducts = new List<Product>();
@@ -27,16 +26,27 @@ namespace ProductsShop.Model.Core
         {
             Products = products;
         }
-        public void SetCartProducts(List<Product> products)
-        {
-            CartProducts = products;
-        }
         public int UpdateCartCounter()
         {
             return CartProducts.Count;
         }
-        
 
+        public decimal GetTotalPrice()
+        {
+            decimal total = 0;
+            foreach (var item in CartProducts)
+            {
+                if (item.IsWeighted)
+                {
+                    total += item.Price * item.Weight;
+                }
+                else
+                {
+                    total += item.Price;
+                }
+            }
+            return total;
+        }
         public void AddProduct(Product product)
         {
             CartProducts.Add(product);

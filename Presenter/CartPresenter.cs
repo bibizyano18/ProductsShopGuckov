@@ -17,14 +17,21 @@ namespace ProductsShop.Presenter
         private readonly ICartView view;
         private readonly ProductsAndCart model;
         private ProductPresenter productPresenter;
+        private PaymentPresenter paymentPresenter;
         public void SetPresenter(ProductPresenter _productPresenter)
         {
             productPresenter = _productPresenter;
+        }
+        public void SetPresenter(PaymentPresenter _paymentPresenter)
+        {
+            paymentPresenter = _paymentPresenter;
         }
         public void ShowView()
         {
             ((Form)view).Show();
             view.DisplayProducts(model.GetCartProducts());
+            paymentPresenter.UpdateBalance();
+            paymentPresenter.SetTotalPrice(model.GetTotalPrice());
         }
         public CartPresenter(ICartView view, ProductsAndCart model)
         {
@@ -38,6 +45,7 @@ namespace ProductsShop.Presenter
             model.AddProduct(product);
             view.DisplayProducts(model.GetCartProducts());
             view.UpdateCartCounter(model.UpdateCartCounter());
+            paymentPresenter.SetTotalPrice(model.GetTotalPrice());
         }
 
         private void View_DeleteProductRequested(object sender, EventArgs e)
@@ -48,6 +56,7 @@ namespace ProductsShop.Presenter
                 model.DeleteProduct(index);
                 view.DisplayProducts(model.GetCartProducts());
                 view.UpdateCartCounter(model.UpdateCartCounter());
+                paymentPresenter.SetTotalPrice(model.GetTotalPrice());
                 productPresenter.UpdateLabelCartCount();
             }
             
