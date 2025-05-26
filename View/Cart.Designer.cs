@@ -33,12 +33,12 @@
             this.labelCard = new System.Windows.Forms.Label();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.labelCash = new System.Windows.Forms.Label();
             this.labelBonus = new System.Windows.Forms.Label();
+            this.labelCash = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.buttonPay = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCart)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -94,21 +94,10 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.groupBox1.Location = new System.Drawing.Point(12, 319);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(135, 119);
+            this.groupBox1.Size = new System.Drawing.Size(175, 119);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Баланс";
-            // 
-            // labelCash
-            // 
-            this.labelCash.AutoSize = true;
-            this.labelCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.labelCash.ForeColor = System.Drawing.Color.Black;
-            this.labelCash.Location = new System.Drawing.Point(6, 60);
-            this.labelCash.Name = "labelCash";
-            this.labelCash.Size = new System.Drawing.Size(112, 17);
-            this.labelCash.TabIndex = 7;
-            this.labelCash.Text = "Наличка: 0 руб.";
             // 
             // labelBonus
             // 
@@ -121,40 +110,29 @@
             this.labelBonus.TabIndex = 8;
             this.labelBonus.Text = "Бонусы: 0 руб.";
             // 
+            // labelCash
+            // 
+            this.labelCash.AutoSize = true;
+            this.labelCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.labelCash.ForeColor = System.Drawing.Color.Black;
+            this.labelCash.Location = new System.Drawing.Point(6, 60);
+            this.labelCash.Name = "labelCash";
+            this.labelCash.Size = new System.Drawing.Size(112, 17);
+            this.labelCash.TabIndex = 7;
+            this.labelCash.Text = "Наличка: 0 руб.";
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.checkBox3);
             this.groupBox2.Controls.Add(this.checkBox2);
             this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.groupBox2.Location = new System.Drawing.Point(153, 319);
+            this.groupBox2.Location = new System.Drawing.Point(193, 319);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(172, 119);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Способ оплаты";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.checkBox1.Location = new System.Drawing.Point(6, 30);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(75, 21);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Картой";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.checkBox2.Location = new System.Drawing.Point(6, 58);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(92, 21);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "Наличкой";
-            this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // checkBox3
             // 
@@ -167,15 +145,38 @@
             this.checkBox3.Text = "Бонусами";
             this.checkBox3.UseVisualStyleBackColor = true;
             // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.checkBox2.Location = new System.Drawing.Point(6, 58);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(92, 21);
+            this.checkBox2.TabIndex = 1;
+            this.checkBox2.Text = "Наличкой";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.checkBox1.Location = new System.Drawing.Point(6, 30);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(75, 21);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Text = "Картой";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // buttonPay
             // 
             this.buttonPay.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.buttonPay.Location = new System.Drawing.Point(331, 319);
+            this.buttonPay.Location = new System.Drawing.Point(371, 319);
             this.buttonPay.Name = "buttonPay";
-            this.buttonPay.Size = new System.Drawing.Size(177, 119);
+            this.buttonPay.Size = new System.Drawing.Size(137, 119);
             this.buttonPay.TabIndex = 10;
             this.buttonPay.Text = "Оплатить";
             this.buttonPay.UseVisualStyleBackColor = true;
+            this.buttonPay.Click += new System.EventHandler(this.buttonPay_Click);
             // 
             // Cart
             // 

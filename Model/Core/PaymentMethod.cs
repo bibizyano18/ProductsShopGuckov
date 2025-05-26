@@ -8,7 +8,7 @@ namespace ProductsShop.Model
 {
     public class PaymentMethod
     {
-        private List<bool> _paymentMethods;
+        //private List<bool> _paymentMethods;
         public decimal cardMoney { get; private set; }
         public decimal cashMoney { get; private set; }
         public decimal bonusMoney { get; private set; }
@@ -20,9 +20,24 @@ namespace ProductsShop.Model
             this.cashMoney = 345;
             this.bonusMoney = 11;
         }
-        public void Payment(List<bool> arr)
+        public bool Payment(List<bool> paymentMethods)
         {
-            _paymentMethods = arr;
+            if (paymentMethods[0] & cardMoney >= TotalPriceInProccess)
+            {
+                cardMoney -= TotalPriceInProccess;
+                return true;
+            }
+            if (paymentMethods[1] & cashMoney >= TotalPriceInProccess)
+            {
+                cashMoney -= TotalPriceInProccess;
+                return true;
+            }
+            if (paymentMethods[2] & bonusMoney >= TotalPriceInProccess)
+            {
+                bonusMoney -= TotalPriceInProccess;
+                return true;
+            }
+            return false;
         }
     }
 }

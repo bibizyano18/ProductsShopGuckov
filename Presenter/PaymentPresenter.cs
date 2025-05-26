@@ -14,11 +14,11 @@ namespace ProductsShop.Presenter
     {
         private readonly IPaymentView view;
         private readonly PaymentMethod model;
-        /*private CartPresenter cartPresenter;
+        private CartPresenter cartPresenter;
         public void SetPresenter(CartPresenter _cartPresenter)
         {
             cartPresenter = _cartPresenter;
-        }*/
+        }
         public PaymentPresenter(IPaymentView view, PaymentMethod model)
         {
             this.view = view;
@@ -32,8 +32,18 @@ namespace ProductsShop.Presenter
             if (sender != null)
             {
                 var arr = sender as List<bool>;
-                model.Payment(arr);
-                view.UpdateBalance(model.cardMoney, model.cashMoney, model.bonusMoney);
+                bool payable = model.Payment(arr);
+                if (payable)
+                {
+                    view.UpdateBalance(model.cardMoney, model.cashMoney, model.bonusMoney);
+                    SetTotalPrice(0);
+                    cartPresenter.SuccessfulPayment();
+                    view.ShowMessage("Оплата прошла успешно, не забудьте свои покупки");
+                }
+                else
+                {
+                    view.ShowError("Недостаточно средств");
+                }
             }
             
         }

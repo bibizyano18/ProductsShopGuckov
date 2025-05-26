@@ -168,5 +168,15 @@ namespace ProductsShop.View
             labelCash.Text = $"Наличка: {cashMoney} руб.";
             labelBonus.Text = $"Бонусы: {bonusMoney} руб.";
         }
+
+        private void buttonPay_Click(object sender, EventArgs e)
+        {
+            MakePayment?.Invoke(new List<bool>()
+            {
+                checkBox1.Checked,
+                checkBox2.Checked,
+                checkBox3.Checked
+            }, EventArgs.Empty);
+        }
     }
 }

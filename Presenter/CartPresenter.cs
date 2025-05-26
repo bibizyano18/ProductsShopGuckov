@@ -33,6 +33,13 @@ namespace ProductsShop.Presenter
             paymentPresenter.UpdateBalance();
             paymentPresenter.SetTotalPrice(model.GetTotalPrice());
         }
+        public void SuccessfulPayment()
+        {
+            model.SetCartProducts(new List<Product>(){ });
+            view.DisplayProducts(model.GetCartProducts());
+            view.UpdateCartCounter(0);
+            productPresenter.UpdateLabelCartCount();
+        }
         public CartPresenter(ICartView view, ProductsAndCart model)
         {
             this.view = view;

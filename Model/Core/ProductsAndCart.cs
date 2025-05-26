@@ -22,6 +22,10 @@ namespace ProductsShop.Model.Core
         {
             return CartProducts;
         }
+        public void SetCartProducts(List<Product> products)
+        {
+            CartProducts = products;
+        }
         public void SetProducts(List<Product> products)
         {
             Products = products;
