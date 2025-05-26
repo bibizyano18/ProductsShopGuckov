@@ -23,7 +23,6 @@ namespace ProductsShop
         }
         private int DataGridViewRowIndex = -1;
         private List<Product> Products;
-        public event EventHandler UpdateCartCount;
         public event EventHandler AddProductRequested;
         public event EventHandler SaveDataInFile;
         public event EventHandler ReadDataFromFile;
@@ -139,14 +138,12 @@ namespace ProductsShop
                         {
                             Products[DataGridViewRowIndex].Weight = dialog.Weight;
                             AddProductRequested?.Invoke(Products[DataGridViewRowIndex], EventArgs.Empty);
-                            UpdateCartCount?.Invoke(labelCart, EventArgs.Empty);
                         }
                     }
                 }
                 else
                 {
                     AddProductRequested?.Invoke(Products[DataGridViewRowIndex], EventArgs.Empty);
-                    UpdateCartCount?.Invoke(labelCart, EventArgs.Empty);
                 }
                 
             } else
@@ -172,6 +169,12 @@ namespace ProductsShop
         private void buttonCart_Click(object sender, EventArgs e)
         {
             ShowCartForm?.Invoke(sender, EventArgs.Empty);
+        }
+
+        public void UpdateCartCounter(int count)
+        {
+            labelCart.Text = $"Корзина: {count}";
+            labelCart.ForeColor = count == 0 ? Color.Gray : Color.Black;
         }
     }
 }

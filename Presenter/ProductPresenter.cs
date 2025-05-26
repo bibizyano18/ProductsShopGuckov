@@ -30,7 +30,6 @@ namespace ProductsShop.Presenter
             this.modelReader = model_reader;
 
             this.view.ShowCartForm += View_ShowCartForm;
-            this.view.UpdateCartCount += View_UpdateCartCount;
             this.view.AddProductRequested += View_AddProductRequested; // подпись на событие добавления продукта
             this.view.ReadDataFromFile += View_ReadDataFromFile;
             this.view.DisplayProducts(modelProduct.GetProducts());
@@ -38,20 +37,11 @@ namespace ProductsShop.Presenter
         }
         internal void UpdateLabelCartCount()
         {
-            view.UpdateCartCount();
+            view.UpdateCartCounter(modelProduct.UpdateCartCounter());
         }
         private void View_ShowCartForm(object sender, EventArgs e)
         {
             cartPresenter.ShowView();
-        }
-
-        private void View_UpdateCartCount(object sender, EventArgs e)
-        {
-            Label labelCart = sender as Label;
-            int count = modelProduct.UpdateCartCounter();
-            labelCart.Text = $"Корзина: {count}";
-
-            labelCart.ForeColor = count == 0 ? Color.Gray : Color.Black;
         }
 
         private void View_AddProductRequested(object sender, EventArgs e)
@@ -59,6 +49,7 @@ namespace ProductsShop.Presenter
             if (sender != null)
             {
                 cartPresenter.AddProduct(sender as Product);
+                view.UpdateCartCounter(modelProduct.UpdateCartCounter());
             }
             
         }

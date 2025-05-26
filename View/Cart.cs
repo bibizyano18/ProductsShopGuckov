@@ -13,8 +13,6 @@ namespace ProductsShop.View
 {
     public partial class Cart : Form, ICartView
     {
-        
-
         public Cart()
         {
             InitializeComponent();
@@ -23,14 +21,10 @@ namespace ProductsShop.View
         private int DataGridViewRowIndex = -1;
         private List<Product> cartProducts;
         public event EventHandler DeleteProductRequested;
-        public event EventHandler UpdateCartCount;
-        public event EventHandler SaveDataInFile;
-        public event EventHandler ReadDataFromFile;
 
         public void DisplayProducts(List<Product> cartItems)
         {
             cartProducts = cartItems;
-            UpdateCartCount?.Invoke(labelCart, EventArgs.Empty);
 
             // Настройка DataGridView
             dataGridViewCart.AutoGenerateColumns = false;
@@ -156,11 +150,15 @@ namespace ProductsShop.View
                     if (cartProducts[i].Id == productId) 
                     { 
                         DeleteProductRequested?.Invoke(i, EventArgs.Empty);
-
                         break;
                     }
                 }
             }
+        }
+        public void UpdateCartCounter(int count)
+        {
+            labelCart.Text = $"Корзина: {count}";
+            labelCart.ForeColor = count == 0 ? Color.Gray : Color.Black;
         }
     }
 }

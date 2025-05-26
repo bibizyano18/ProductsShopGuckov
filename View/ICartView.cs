@@ -10,9 +10,9 @@ namespace ProductsShop.View
     public interface ICartView
     {
         void DisplayProducts(List<Product> products);
+        void UpdateCartCounter(int count);
 
         event EventHandler DeleteProductRequested;
-        event EventHandler UpdateCartCount;
         void ShowMessage(string message);
         void ShowError(string message);
 

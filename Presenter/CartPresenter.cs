@@ -31,13 +31,13 @@ namespace ProductsShop.Presenter
             this.view = view;
             this.model = model;
 
-            this.view.UpdateCartCount += View_UpdateCartCount;
             this.view.DeleteProductRequested += View_DeleteProductRequested;
         }
         internal void AddProduct(Product product)
         {
             model.AddProduct(product);
             view.DisplayProducts(model.GetCartProducts());
+            view.UpdateCartCounter(model.UpdateCartCounter());
         }
 
         private void View_DeleteProductRequested(object sender, EventArgs e)
@@ -47,18 +47,10 @@ namespace ProductsShop.Presenter
                 int index = (int)sender;
                 model.DeleteProduct(index);
                 view.DisplayProducts(model.GetCartProducts());
-                productPresenter.
+                view.UpdateCartCounter(model.UpdateCartCounter());
+                productPresenter.UpdateLabelCartCount();
             }
             
-        }
-
-        private void View_UpdateCartCount(object sender, EventArgs e)
-        {
-            Label labelCart = sender as Label;
-            int count = model.UpdateCartCounter();
-            labelCart.Text = $"Корзина: {count}";
-
-            labelCart.ForeColor = count == 0 ? Color.Gray : Color.Black;
         }
     }
 }
