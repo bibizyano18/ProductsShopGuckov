@@ -20,13 +20,16 @@ namespace ProductsShop
             InitializeComponent();
   
         }
-        public int DataGridViewRowIndex;
+        private int DataGridViewRowIndex = -1;
+        private List<Product> Products;
+        public event EventHandler UpdateCartCount;
         public event EventHandler AddProductRequested;
         public event EventHandler SaveDataInFile;
         public event EventHandler ReadDataFromFile;
         public event EventHandler DeleteProductRequested;
         public void DisplayProducts(List<Product> products)
         {
+            Products = products;
             // Настройка DataGridView
             dataGridViewProducts.AutoGenerateColumns = false;
             dataGridViewProducts.RowHeadersVisible = false;
@@ -124,7 +127,15 @@ namespace ProductsShop
 
         private void buttonAddToCart_Click(object sender, EventArgs e)
         {
-            AddProductRequested?.Invoke(DataGridViewRowIndex, EventArgs.Empty);
+            if (DataGridViewRowIndex > -1)
+            {
+                AddProductRequested?.Invoke(Products[DataGridViewRowIndex], EventArgs.Empty);
+                UpdateCartCount?.Invoke(labelCart, EventArgs.Empty);
+            } else
+            {
+                ShowError("Выберите товар");
+            }
+            
         }
 
         private void dataGridViewProducts_SelectionChanged(object sender, EventArgs e)

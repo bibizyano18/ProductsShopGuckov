@@ -68,6 +68,7 @@
             // 
             this.labelCart.AutoSize = true;
             this.labelCart.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.labelCart.ForeColor = System.Drawing.Color.Gray;
             this.labelCart.Location = new System.Drawing.Point(604, 12);
             this.labelCart.Name = "labelCart";
             this.labelCart.Size = new System.Drawing.Size(106, 24);

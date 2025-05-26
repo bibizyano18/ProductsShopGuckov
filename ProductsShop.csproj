@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Core\Cart.cs" />
+    <Compile Include="Model\Core\ProductsAndCart.cs" />
     <Compile Include="Model\Core\PaymentMethod.cs" />
     <Compile Include="Model\Core\Product.cs" />
     <Compile Include="Model\Data\FileReader.cs" />

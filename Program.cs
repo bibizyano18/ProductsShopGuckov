@@ -20,7 +20,7 @@ namespace ProductsShop
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var view = new MainForm();
-            var model_product = new Cart();
+            var model_product = new ProductsAndCart();
             var model_reader = new FileReader();
             var presenter = new ProductPresenter(view, model_product, model_reader);
             Application.Run(view);
