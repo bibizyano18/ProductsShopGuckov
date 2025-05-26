@@ -32,6 +32,7 @@
             this.buttonTest = new System.Windows.Forms.Button();
             this.dataGridViewProducts = new System.Windows.Forms.DataGridView();
             this.labelCart = new System.Windows.Forms.Label();
+            this.buttonCart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProducts)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,11 +76,22 @@
             this.labelCart.TabIndex = 4;
             this.labelCart.Text = "Корзина: 0";
             // 
+            // buttonCart
+            // 
+            this.buttonCart.Location = new System.Drawing.Point(579, 49);
+            this.buttonCart.Name = "buttonCart";
+            this.buttonCart.Size = new System.Drawing.Size(142, 77);
+            this.buttonCart.TabIndex = 5;
+            this.buttonCart.Text = "Перейти в корзину";
+            this.buttonCart.UseVisualStyleBackColor = true;
+            this.buttonCart.Click += new System.EventHandler(this.buttonCart_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonCart);
             this.Controls.Add(this.labelCart);
             this.Controls.Add(this.dataGridViewProducts);
             this.Controls.Add(this.buttonTest);
@@ -97,6 +109,7 @@
         private System.Windows.Forms.Button buttonTest;
         private System.Windows.Forms.DataGridView dataGridViewProducts;
         private System.Windows.Forms.Label labelCart;
+        private System.Windows.Forms.Button buttonCart;
     }
 }
 

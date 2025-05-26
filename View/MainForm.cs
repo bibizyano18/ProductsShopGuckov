@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProductsShop.Model;
 using ProductsShop.Model.Data;
+using ProductsShop.Presenter;
 using ProductsShop.View;
 
 namespace ProductsShop
@@ -26,7 +27,8 @@ namespace ProductsShop
         public event EventHandler AddProductRequested;
         public event EventHandler SaveDataInFile;
         public event EventHandler ReadDataFromFile;
-        public event EventHandler DeleteProductRequested;
+        public event EventHandler ShowCartForm;
+
         public void DisplayProducts(List<Product> products)
         {
             Products = products;
@@ -164,6 +166,11 @@ namespace ProductsShop
                     DataGridViewRowIndex = row.Index;
                 }
             }
+        }
+
+        private void buttonCart_Click(object sender, EventArgs e)
+        {
+            ShowCartForm?.Invoke(sender, EventArgs.Empty);
         }
     }
 }

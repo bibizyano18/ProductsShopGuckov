@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using ProductsShop.Model.Core;
 using ProductsShop.Model.Data;
 using ProductsShop.Presenter;
+using ProductsShop.View;
 
 namespace ProductsShop
 {
@@ -19,11 +20,15 @@ namespace ProductsShop
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var view = new MainForm();
+            var view_main = new MainForm();
+            var view_cart = new Cart();
             var model_product = new ProductsAndCart();
             var model_reader = new FileReader();
-            var presenter = new ProductPresenter(view, model_product, model_reader);
-            Application.Run(view);
+            var product_presenter = new ProductPresenter(view_main, model_product, model_reader);
+            var cart_presenter = new CartPresenter(view_cart, model_product);
+
+            product_presenter.SetCartPresenter(cart_presenter);
+            Application.Run(view_main);
         }
     }
 }

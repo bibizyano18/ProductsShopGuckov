@@ -18,21 +18,28 @@ namespace ProductsShop.Presenter
         private readonly IProductView view;
         private readonly ProductsAndCart modelProduct;
         private readonly FileReader modelReader;
-
-
+        private CartPresenter cartPresenter;
+        public void SetCartPresenter(CartPresenter _cartPresenter)
+        {
+            cartPresenter = _cartPresenter;
+        }
         public ProductPresenter(IProductView view, ProductsAndCart model_product, FileReader model_reader)
         {
             this.view = view;
             this.modelProduct = model_product;
             this.modelReader = model_reader;
 
+            this.view.ShowCartForm += View_ShowCartForm;
             this.view.UpdateCartCount += View_UpdateCartCount;
             this.view.AddProductRequested += View_AddProductRequested; // подпись на событие добавления продукта
-            //this.view.SaveDataInFile += View_SaveDataInFile;
             this.view.ReadDataFromFile += View_ReadDataFromFile;
-            //this.view.DeleteProductRequested += View_DeleteProductRequested;
             this.view.DisplayProducts(modelProduct.GetProducts());
            
+        }
+
+        private void View_ShowCartForm(object sender, EventArgs e)
+        {
+            cartPresenter.ShowView();
         }
 
         private void View_UpdateCartCount(object sender, EventArgs e)

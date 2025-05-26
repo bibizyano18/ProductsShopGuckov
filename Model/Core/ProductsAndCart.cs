@@ -16,21 +16,6 @@ namespace ProductsShop.Model.Core
             Products = new List<Product>(); 
             CartProducts = new List<Product>();
         }
-        public decimal GetCost()
-        {
-            foreach (var item in CartProducts)
-            {
-                if (item.IsWeighted)
-                {
-                    Cost += item.Price * item.Weight;
-                }
-                else
-                {
-                    Cost += item.Price;
-                }
-            }
-            return Cost;
-        }
         public List<Product> GetProducts()
         {
             return Products;
