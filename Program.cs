@@ -27,7 +27,8 @@ namespace ProductsShop
             var product_presenter = new ProductPresenter(view_main, model_product, model_reader);
             var cart_presenter = new CartPresenter(view_cart, model_product);
 
-            product_presenter.SetCartPresenter(cart_presenter);
+            product_presenter.SetPresenter(cart_presenter);
+            cart_presenter.SetPresenter(product_presenter);
             Application.Run(view_main);
         }
     }

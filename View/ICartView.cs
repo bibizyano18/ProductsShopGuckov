@@ -13,8 +13,6 @@ namespace ProductsShop.View
 
         event EventHandler DeleteProductRequested;
         event EventHandler UpdateCartCount;
-        event EventHandler SaveDataInFile;
-        event EventHandler ReadDataFromFile;
         void ShowMessage(string message);
         void ShowError(string message);
 

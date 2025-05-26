@@ -13,11 +13,15 @@ namespace ProductsShop.View
 {
     public partial class Cart : Form, ICartView
     {
+        
+
         public Cart()
         {
             InitializeComponent();
         }
 
+        private int DataGridViewRowIndex = -1;
+        private List<Product> cartProducts;
         public event EventHandler DeleteProductRequested;
         public event EventHandler UpdateCartCount;
         public event EventHandler SaveDataInFile;
@@ -25,104 +29,84 @@ namespace ProductsShop.View
 
         public void DisplayProducts(List<Product> cartItems)
         {
+            cartProducts = cartItems;
+            UpdateCartCount?.Invoke(labelCart, EventArgs.Empty);
+
+            // Настройка DataGridView
             dataGridViewCart.AutoGenerateColumns = false;
             dataGridViewCart.RowHeadersVisible = false;
             dataGridViewCart.AllowUserToAddRows = false;
             dataGridViewCart.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewCart.ReadOnly = true;
 
+            // Очистка и настройка колонок
             dataGridViewCart.Columns.Clear();
-            dataGridViewCart.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                Name = "Name",
-                HeaderText = "Товар",
-                Width = 150,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-            });
+            dataGridViewCart.Columns.AddRange(
+                new DataGridViewTextBoxColumn { Name = "Id", DataPropertyName = "Id", Visible = false },
+                new DataGridViewTextBoxColumn { Name = "Name", HeaderText = "Товар", Width = 150, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill },
+                new DataGridViewTextBoxColumn { Name = "Quantity", HeaderText = "Кол-во", Width = 80, DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleRight } },
+                new DataGridViewTextBoxColumn { Name = "Unit", HeaderText = "Ед.изм.", Width = 60 },
+                new DataGridViewTextBoxColumn { Name = "PricePerUnit", HeaderText = "Цена за ед.", Width = 90, DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleRight } },
+                new DataGridViewTextBoxColumn { Name = "TotalPrice", HeaderText = "Сумма", Width = 90, DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleRight, Font = new Font("Segoe UI", 9, FontStyle.Bold) } }
+            );
 
-            dataGridViewCart.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                Name = "Quantity",
-                HeaderText = "Кол-во",
-                Width = 80,
-                DefaultCellStyle = new DataGridViewCellStyle()
-                {
-                    Alignment = DataGridViewContentAlignment.MiddleRight
-                }
-            });
-
-            dataGridViewCart.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                Name = "Unit",
-                HeaderText = "Ед.изм.",
-                Width = 60
-            });
-
-            dataGridViewCart.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                Name = "PricePerUnit",
-                HeaderText = "Цена за ед.",
-                Width = 90,
-                DefaultCellStyle = new DataGridViewCellStyle()
-                {
-                    Format = "N2 ₽",
-                    Alignment = DataGridViewContentAlignment.MiddleRight
-                }
-            });
-
-            dataGridViewCart.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                Name = "TotalPrice",
-                HeaderText = "Сумма",
-                Width = 90,
-                DefaultCellStyle = new DataGridViewCellStyle()
-                {
-                    Format = "N2 ₽",
-                    Alignment = DataGridViewContentAlignment.MiddleRight,
-                    Font = new Font("Segoe UI", 9, FontStyle.Bold)
-                }
-            });
+            // Группируем товары по ID
+            var groupedItems = cartItems
+                .GroupBy(p => p.Id)
+                .Select(g => new {
+                    Product = g.First(),
+                    Count = g.Count(),
+                    TotalWeight = g.Sum(p => p.Weight),
+                    TotalPrice = g.Sum(p => p.IsWeighted ? p.Price * (decimal)p.Weight : p.Price)
+                })
+                .ToList();
 
             // Заполняем данные
             decimal cartTotal = 0;
-            foreach (var item in cartItems)
+            foreach (var group in groupedItems)
             {
-                decimal itemTotal = item.IsWeighted ?
-                    item.Price * (decimal)item.Weight :
-                    item.Price;
+                var product = group.Product;
+                string quantity = product.IsWeighted ?
+                    group.TotalWeight.ToString("0.00") :
+                    group.Count.ToString();
 
                 dataGridViewCart.Rows.Add(
-                    item.Name,
-                    item.IsWeighted ? item.Weight.ToString("0.00") : 1.ToString(),
-                    item.IsWeighted ? "кг" : "шт.",
-                    item.Price,
-                    itemTotal
+                    product.Id,
+                    product.Name,
+                    quantity,
+                    product.IsWeighted ? "кг" : "шт.",
+                    product.Price + " ₽",
+                    group.TotalPrice + " ₽"
                 );
 
-                cartTotal += itemTotal;
+                cartTotal += group.TotalPrice;
             }
 
             // Добавляем итоговую строку
-            dataGridViewCart.Rows.Add(
-                "ИТОГО:",
-                "",
-                "",
-                "",
-                cartTotal
-            );
-            dataGridViewCart.Rows[dataGridViewCart.Rows.Count - 1].DefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Bold);
+            if (groupedItems.Any())
+            {
+                int lastRowIndex = dataGridViewCart.Rows.Add(
+                    null, // ID
+                    "ИТОГО:",
+                    null, // Quantity
+                    null, // Unit
+                    null, // PricePerUnit
+                    cartTotal + " ₽"
+                );
+
+                dataGridViewCart.Rows[lastRowIndex].DefaultCellStyle.Font =
+                    new Font("Segoe UI", 9, FontStyle.Bold);
+            }
 
             // Настройка внешнего вида
             dataGridViewCart.EnableHeadersVisualStyles = false;
-            dataGridViewCart.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle()
+            dataGridViewCart.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
             {
                 BackColor = Color.LightGray,
                 Font = new Font("Segoe UI", 9, FontStyle.Bold),
                 Alignment = DataGridViewContentAlignment.MiddleCenter
             };
         }
-
         public void ShowMessage(string message)
         {
             MessageBox.Show(message, "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -131,6 +115,7 @@ namespace ProductsShop.View
         {
             MessageBox.Show(message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
@@ -139,6 +124,43 @@ namespace ProductsShop.View
                 Hide();
             }
             base.OnFormClosing(e);
+        }
+
+        private void dataGridViewCart_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridView gv = sender as DataGridView;
+            if (gv != null && gv.SelectedRows.Count > 0)
+            {
+                DataGridViewRow row = gv.SelectedRows[0];
+                if (row != null)
+                {
+                    DataGridViewRowIndex = row.Index;
+                }
+            }
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewCart.SelectedRows.Count == 0)
+            {
+                ShowError("Выберите товар для удаления");
+                return;
+            }
+            else
+            {
+                // Получаем ID из выбранной строки
+                var selectedRow = dataGridViewCart.SelectedRows[0];
+                int productId = (int)selectedRow.Cells["Id"].Value;
+                for (int i = 0; i < cartProducts.Count; i++) 
+                {
+                    if (cartProducts[i].Id == productId) 
+                    { 
+                        DeleteProductRequested?.Invoke(i, EventArgs.Empty);
+
+                        break;
+                    }
+                }
+            }
         }
     }
 }

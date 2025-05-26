@@ -10,7 +10,6 @@ namespace ProductsShop.Model.Core
     {
         private List<Product> Products;
         private List<Product> CartProducts;
-        private decimal Cost;
         
         public ProductsAndCart() {
             Products = new List<Product>(); 

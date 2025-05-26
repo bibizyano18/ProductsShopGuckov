@@ -152,6 +152,7 @@ namespace ProductsShop
             } else
             {
                 ShowError("Выберите товар");
+                return;
             }
         }
 

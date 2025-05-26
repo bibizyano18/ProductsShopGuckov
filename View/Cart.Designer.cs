@@ -31,6 +31,7 @@
             this.dataGridViewCart = new System.Windows.Forms.DataGridView();
             this.labelCart = new System.Windows.Forms.Label();
             this.labelMoney = new System.Windows.Forms.Label();
+            this.buttonDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCart)).BeginInit();
             this.SuspendLayout();
             // 
@@ -41,6 +42,7 @@
             this.dataGridViewCart.Name = "dataGridViewCart";
             this.dataGridViewCart.Size = new System.Drawing.Size(496, 261);
             this.dataGridViewCart.TabIndex = 4;
+            this.dataGridViewCart.SelectionChanged += new System.EventHandler(this.dataGridViewCart_SelectionChanged);
             // 
             // labelCart
             // 
@@ -64,11 +66,22 @@
             this.labelMoney.TabIndex = 6;
             this.labelMoney.Text = "Баланс: 0 руб.";
             // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Location = new System.Drawing.Point(407, 319);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(101, 93);
+            this.buttonDelete.TabIndex = 7;
+            this.buttonDelete.Text = "Удалить из корзины";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
             // Cart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(520, 450);
+            this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.labelMoney);
             this.Controls.Add(this.labelCart);
             this.Controls.Add(this.dataGridViewCart);
@@ -85,5 +98,6 @@
         private System.Windows.Forms.DataGridView dataGridViewCart;
         private System.Windows.Forms.Label labelCart;
         private System.Windows.Forms.Label labelMoney;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }

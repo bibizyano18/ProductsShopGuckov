@@ -19,7 +19,7 @@ namespace ProductsShop.Presenter
         private readonly ProductsAndCart modelProduct;
         private readonly FileReader modelReader;
         private CartPresenter cartPresenter;
-        public void SetCartPresenter(CartPresenter _cartPresenter)
+        public void SetPresenter(CartPresenter _cartPresenter)
         {
             cartPresenter = _cartPresenter;
         }
@@ -36,7 +36,10 @@ namespace ProductsShop.Presenter
             this.view.DisplayProducts(modelProduct.GetProducts());
            
         }
-
+        internal void UpdateLabelCartCount()
+        {
+            view.UpdateCartCount();
+        }
         private void View_ShowCartForm(object sender, EventArgs e)
         {
             cartPresenter.ShowView();
@@ -55,7 +58,7 @@ namespace ProductsShop.Presenter
         {
             if (sender != null)
             {
-                modelProduct.AddProduct(sender as Product);
+                cartPresenter.AddProduct(sender as Product);
             }
             
         }
