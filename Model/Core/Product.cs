@@ -8,14 +8,13 @@ namespace ProductsShop.Model
 {
     public class Product
     {
-        public Product(int id, string name, decimal price, bool isWeighted, decimal weight, int quantity)
+        public Product(int id, string name, decimal price, bool isWeighted, decimal weight)
         {
             this.Id = id;
             this.Name = name;
             this.Price = price; 
             this.IsWeighted = isWeighted;
             this.Weight = weight;
-            this.Quantity = quantity;
             
         }
 
@@ -24,6 +23,5 @@ namespace ProductsShop.Model
         public decimal Price { get; set; }
         public bool IsWeighted { get; set; }
         public decimal Weight { get; set; }
-        public int Quantity { get; set; }
     }
 }

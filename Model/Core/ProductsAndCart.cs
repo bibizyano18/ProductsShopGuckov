@@ -26,7 +26,7 @@ namespace ProductsShop.Model.Core
                 }
                 else
                 {
-                    Cost += item.Price * item.Quantity;
+                    Cost += item.Price;
                 }
             }
             return Cost;

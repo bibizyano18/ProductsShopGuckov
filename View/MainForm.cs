@@ -129,13 +129,28 @@ namespace ProductsShop
         {
             if (DataGridViewRowIndex > -1)
             {
-                AddProductRequested?.Invoke(Products[DataGridViewRowIndex], EventArgs.Empty);
-                UpdateCartCount?.Invoke(labelCart, EventArgs.Empty);
+                if (Products[DataGridViewRowIndex].IsWeighted)
+                {
+                    using (WeightInputDialog dialog = new WeightInputDialog())
+                    {
+                        if (dialog.ShowDialog() == DialogResult.OK)
+                        {
+                            Products[DataGridViewRowIndex].Weight = dialog.Weight;
+                            AddProductRequested?.Invoke(Products[DataGridViewRowIndex], EventArgs.Empty);
+                            UpdateCartCount?.Invoke(labelCart, EventArgs.Empty);
+                        }
+                    }
+                }
+                else
+                {
+                    AddProductRequested?.Invoke(Products[DataGridViewRowIndex], EventArgs.Empty);
+                    UpdateCartCount?.Invoke(labelCart, EventArgs.Empty);
+                }
+                
             } else
             {
                 ShowError("Выберите товар");
             }
-            
         }
 
         private void dataGridViewProducts_SelectionChanged(object sender, EventArgs e)

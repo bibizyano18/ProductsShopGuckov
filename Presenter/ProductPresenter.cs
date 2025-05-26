@@ -41,7 +41,6 @@ namespace ProductsShop.Presenter
             int count = modelProduct.UpdateCartCounter();
             labelCart.Text = $"Корзина: {count}";
 
-            // Дополнительно можно менять цвет, если корзина пуста
             labelCart.ForeColor = count == 0 ? Color.Gray : Color.Black;
         }
 

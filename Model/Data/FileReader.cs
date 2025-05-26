@@ -17,8 +17,7 @@ namespace ProductsShop.Model.Data
                                    $"{product.Name}," +
                                    $"{product.Price}," +
                                    $"{product.IsWeighted}," +
-                                   $"{product.Weight}," +
-                                   $"{product.Quantity}");
+                                   $"{product.Weight}");
                 }
             }
         }
@@ -43,8 +42,7 @@ namespace ProductsShop.Model.Data
                             name: data[1],
                             price: decimal.Parse(data[2]),
                             isWeighted: bool.Parse(data[3]),
-                            weight: decimal.Parse(data[4]),
-                            quantity: int.Parse(data[5])
+                            weight: decimal.Parse(data[4])
                         ));
                     }
                 }
