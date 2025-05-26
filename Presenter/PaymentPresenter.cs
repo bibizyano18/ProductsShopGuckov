@@ -50,7 +50,7 @@ namespace ProductsShop.Presenter
 
         public void SetTotalPrice(decimal price)
         {
-            model.TotalPriceInProccess = price;
+            model.totalPrice = price;
         }
 
         public void UpdateBalance()

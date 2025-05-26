@@ -8,11 +8,10 @@ namespace ProductsShop.Model
 {
     public class PaymentMethod
     {
-        //private List<bool> _paymentMethods;
         public decimal cardMoney { get; private set; }
         public decimal cashMoney { get; private set; }
         public decimal bonusMoney { get; private set; }
-        public decimal TotalPriceInProccess { get; set; }
+        public decimal totalPrice { get; set; }
 
         public PaymentMethod() 
         {
@@ -22,22 +21,49 @@ namespace ProductsShop.Model
         }
         public bool Payment(List<bool> paymentMethods)
         {
-            if (paymentMethods[0] & cardMoney >= TotalPriceInProccess)
+            if (totalPrice <= 0) return false;
+            if (paymentMethods == null || paymentMethods.Count < 3) return false;
+
+            bool useCard = paymentMethods[0] && cardMoney > 0;
+            bool useCash = paymentMethods[1] && cashMoney > 0;
+            bool useBonus = paymentMethods[2] && bonusMoney > 0;
+
+            // Считаем общий доступный баланс
+            decimal totalAvailable = 0;
+            if (useCard) totalAvailable += cardMoney;
+            if (useCash) totalAvailable += cashMoney;
+            if (useBonus) totalAvailable += bonusMoney;
+
+            // Если денег недостаточно
+            if (totalAvailable < totalPrice) return false;
+
+            decimal remaining = totalPrice;
+
+            if (useBonus)
             {
-                cardMoney -= TotalPriceInProccess;
-                return true;
+                decimal min = Math.Min(bonusMoney, remaining);
+                bonusMoney -= min;
+                remaining -= min;
+                if (remaining == 0) return true;
             }
-            if (paymentMethods[1] & cashMoney >= TotalPriceInProccess)
+
+            if (useCard)
             {
-                cashMoney -= TotalPriceInProccess;
-                return true;
+                decimal min = Math.Min(cardMoney, remaining);
+                cardMoney -= min;
+                remaining -= min;
+                if (remaining == 0) return true;
             }
-            if (paymentMethods[2] & bonusMoney >= TotalPriceInProccess)
+
+            if (useCash)
             {
-                bonusMoney -= TotalPriceInProccess;
-                return true;
+                decimal min = Math.Min(cashMoney, remaining);
+                cashMoney -= min;
+                remaining -= min;
+
             }
-            return false;
+
+            return remaining == 0;
         }
     }
 }
