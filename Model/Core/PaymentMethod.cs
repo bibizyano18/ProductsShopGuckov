@@ -19,6 +19,14 @@ namespace ProductsShop.Model
             this.cashMoney = 345;
             this.bonusMoney = 11;
         }
+        public PaymentMethod(decimal cardMoney, decimal cashMoney, decimal bonusMoney, decimal totalPrice)
+        {
+            this.cardMoney = cardMoney;
+            this.cashMoney = cashMoney;
+            this.bonusMoney = bonusMoney;
+            this.totalPrice = totalPrice;
+        }
+
         public bool Payment(List<bool> paymentMethods)
         {
             if (totalPrice <= 0) return false;
