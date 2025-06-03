@@ -26,7 +26,7 @@ namespace ProductsShop
 
             var model_product = new ProductsAndCart();
             var model_reader = new FileReader();
-            var model_payment = new PaymentMethod();
+            var model_payment = new Payment();
 
             var product_presenter = new ProductPresenter(view_main, model_product, model_reader);
             var cart_presenter = new CartPresenter(view_cart, model_product);

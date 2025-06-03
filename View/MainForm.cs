@@ -24,7 +24,6 @@ namespace ProductsShop
         private int DataGridViewRowIndex = -1;
         private List<Product> Products;
         public event EventHandler AddProductRequested;
-        public event EventHandler SaveDataInFile;
         public event EventHandler ReadDataFromFile;
         public event EventHandler ShowCartForm;
 

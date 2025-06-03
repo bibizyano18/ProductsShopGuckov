@@ -47,8 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Core\Payment\IPaymentMethods.cs" />
+    <Compile Include="Model\Core\Payment\Payment.cs" />
     <Compile Include="Model\Core\ProductsAndCart.cs" />
-    <Compile Include="Model\Core\PaymentMethod.cs" />
     <Compile Include="Model\Core\Product.cs" />
     <Compile Include="Model\Data\FileReader.cs" />
     <Compile Include="Presenter\CartPresenter.cs" />
@@ -111,5 +112,6 @@
   <ItemGroup>
     <Content Include="Model\Data\products.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -47,6 +47,10 @@ namespace ProductsShop.Presenter
 
             this.view.DeleteProductRequested += View_DeleteProductRequested;
         }
+        internal int GetAmountCart()
+        {
+            return model.GetCartProducts().Count();
+        }
         internal void AddProduct(Product product)
         {
             model.AddProduct(product);

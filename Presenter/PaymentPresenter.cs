@@ -13,13 +13,13 @@ namespace ProductsShop.Presenter
     public class PaymentPresenter
     {
         private readonly IPaymentView view;
-        private readonly PaymentMethod model;
+        private readonly Payment model;
         private CartPresenter cartPresenter;
         public void SetPresenter(CartPresenter _cartPresenter)
         {
             cartPresenter = _cartPresenter;
         }
-        public PaymentPresenter(IPaymentView view, PaymentMethod model)
+        public PaymentPresenter(IPaymentView view, Payment model)
         {
             this.view = view;
             this.model = model;
@@ -32,20 +32,23 @@ namespace ProductsShop.Presenter
             if (sender != null)
             {
                 var arr = sender as List<bool>;
-                bool payable = model.Payment(arr);
-                if (payable)
+                bool payable = model.MakePayment(arr);
+                if (cartPresenter.GetAmountCart() > 0)
                 {
-                    view.UpdateBalance(model.cardMoney, model.cashMoney, model.bonusMoney);
-                    SetTotalPrice(0);
-                    cartPresenter.SuccessfulPayment();
-                    view.ShowMessage("Оплата прошла успешно, не забудьте свои покупки");
+                    if (payable)
+                    {
+                        view.UpdateBalance(model.cardMoney, model.cashMoney, model.bonusMoney);
+                        SetTotalPrice(0);
+                        cartPresenter.SuccessfulPayment();
+                        view.ShowMessage("Оплата прошла успешно, не забудьте свои покупки");
+                    }
+                    else
+                    {
+                        view.ShowError("Недостаточно средств");
+                    }
                 }
-                else
-                {
-                    view.ShowError("Недостаточно средств");
-                }
+                else view.ShowError("Добавьте товары в корзину");
             }
-            
         }
 
         public void SetTotalPrice(decimal price)
