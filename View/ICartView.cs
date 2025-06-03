@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProductsShop.Model;
 
 namespace ProductsShop.View
 {
-    public interface IPaymentView
+    public interface ICartView
     {
-        void UpdateBalance(decimal cardMoney, decimal cashMoney, decimal bonusMoney);
+        void DisplayProducts(List<Product> products);
+        void UpdateCartCounter(int count);
+
+        event EventHandler DeleteProductRequested;
         void ShowMessage(string message);
         void ShowError(string message);
 
-        event EventHandler MakePayment;
     }
 }

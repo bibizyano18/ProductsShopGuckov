@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProductsShop.Model;
+using ProductsShop.Model.Data;
+using ProductsShop.Presenter;
 using ProductsShop.View;
 
 namespace ProductsShop
@@ -17,21 +19,92 @@ namespace ProductsShop
         public MainForm()
         {
             InitializeComponent();
+  
         }
+        private int DataGridViewRowIndex = -1;
+        private List<Product> Products;
         public event EventHandler AddProductRequested;
-        public event EventHandler SaveDataInFile;
         public event EventHandler ReadDataFromFile;
-        public event EventHandler DeleteProductRequested;
+        public event EventHandler ShowCartForm;
+
         public void DisplayProducts(List<Product> products)
         {
-            listViewProducts.Items.Clear();
+            Products = products;
+            // Настройка DataGridView
+            dataGridViewProducts.AutoGenerateColumns = false;
+            dataGridViewProducts.RowHeadersVisible = false;
+            dataGridViewProducts.AllowUserToAddRows = false;
+            dataGridViewProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            // Очистка старых колонок
+            dataGridViewProducts.Columns.Clear();
+
+            // Создаем колонки
+            dataGridViewProducts.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                Name = "Id",
+                HeaderText = "ID",
+                DataPropertyName = "Id",
+                Width = 50
+            });
+
+            dataGridViewProducts.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                Name = "Name",
+                HeaderText = "Название",
+                DataPropertyName = "Name",
+                Width = 150,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            });
+
+            dataGridViewProducts.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                Name = "Price",
+                HeaderText = "Цена",
+                Width = 80,
+            });
+
+            dataGridViewProducts.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                Name = "Type",
+                HeaderText = "Тип",
+                Width = 120
+            });
+
+            dataGridViewProducts.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                Name = "Unit",
+                HeaderText = "Ед.изм.",
+                Width = 80
+            });
+
+            // Заполняем данные
+            var rows = new List<DataGridViewRow>();
             foreach (var product in products)
             {
-                ListViewItem item = new ListViewItem(product.Id.ToString());
-                item.SubItems.Add(product.Name);
-                item.SubItems.Add(product.Price.ToString() + " руб.");
-                listViewProducts.Items.Add(item);
+                var row = new DataGridViewRow();
+                row.CreateCells(dataGridViewProducts);
+
+                row.Cells[0].Value = product.Id;
+                row.Cells[1].Value = product.Name;
+                row.Cells[2].Value = product.Price + " ₽";
+                row.Cells[3].Value = product.IsWeighted ? "Взвешиваемый" : "Штучный";
+                row.Cells[4].Value = product.IsWeighted ? "кг" : "шт.";
+
+                row.DefaultCellStyle.BackColor = product.IsWeighted ? Color.Lavender : Color.Honeydew;
+                rows.Add(row);
             }
+
+            // Добавляем все строки сразу (для производительности)
+            dataGridViewProducts.Rows.AddRange(rows.ToArray());
+            dataGridViewProducts.EnableHeadersVisualStyles = false;
+            dataGridViewProducts.ReadOnly = true;
+            dataGridViewProducts.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle()
+            {
+                BackColor = Color.LightGray,
+                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Alignment = DataGridViewContentAlignment.MiddleCenter
+            };
         }
         public void ShowMessage(string message)
         {
@@ -40,6 +113,67 @@ namespace ProductsShop
         public void ShowError(string message)
         {
             MessageBox.Show(message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void buttonFileRead_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "(*.txt)|*.txt|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ReadDataFromFile?.Invoke(openFileDialog.FileName, EventArgs.Empty);
+            }
+        }
+
+        private void buttonAddToCart_Click(object sender, EventArgs e)
+        {
+            if (DataGridViewRowIndex > -1)
+            {
+                if (Products[DataGridViewRowIndex].IsWeighted)
+                {
+                    using (WeightInputDialog dialog = new WeightInputDialog())
+                    {
+                        if (dialog.ShowDialog() == DialogResult.OK)
+                        {
+                            Products[DataGridViewRowIndex].Weight = dialog.Weight;
+                            AddProductRequested?.Invoke(Products[DataGridViewRowIndex], EventArgs.Empty);
+                        }
+                    }
+                }
+                else
+                {
+                    AddProductRequested?.Invoke(Products[DataGridViewRowIndex], EventArgs.Empty);
+                }
+                
+            } else
+            {
+                ShowError("Выберите товар");
+                return;
+            }
+        }
+
+        private void dataGridViewProducts_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridView gv = sender as DataGridView;
+            if (gv != null && gv.SelectedRows.Count > 0)
+            {
+                DataGridViewRow row = gv.SelectedRows[0];
+                if (row != null)
+                {
+                    DataGridViewRowIndex = row.Index;
+                }
+            }
+        }
+
+        private void buttonCart_Click(object sender, EventArgs e)
+        {
+            ShowCartForm?.Invoke(sender, EventArgs.Empty);
+        }
+
+        public void UpdateCartCounter(int count)
+        {
+            labelCart.Text = $"Корзина: {count}";
+            labelCart.ForeColor = count == 0 ? Color.Gray : Color.Black;
         }
     }
 }

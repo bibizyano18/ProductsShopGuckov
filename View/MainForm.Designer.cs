@@ -28,33 +28,88 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listViewProducts = new System.Windows.Forms.ListView();
+            this.buttonFileRead = new System.Windows.Forms.Button();
+            this.buttonTest = new System.Windows.Forms.Button();
+            this.dataGridViewProducts = new System.Windows.Forms.DataGridView();
+            this.labelCart = new System.Windows.Forms.Label();
+            this.buttonCart = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProducts)).BeginInit();
             this.SuspendLayout();
             // 
-            // listViewProducts
+            // buttonFileRead
             // 
-            this.listViewProducts.HideSelection = false;
-            this.listViewProducts.Location = new System.Drawing.Point(12, 79);
-            this.listViewProducts.Name = "listViewProducts";
-            this.listViewProducts.Size = new System.Drawing.Size(276, 253);
-            this.listViewProducts.TabIndex = 0;
-            this.listViewProducts.UseCompatibleStateImageBehavior = false;
+            this.buttonFileRead.Location = new System.Drawing.Point(12, 357);
+            this.buttonFileRead.Name = "buttonFileRead";
+            this.buttonFileRead.Size = new System.Drawing.Size(142, 77);
+            this.buttonFileRead.TabIndex = 1;
+            this.buttonFileRead.Text = "Прочитать файл";
+            this.buttonFileRead.UseVisualStyleBackColor = true;
+            this.buttonFileRead.Click += new System.EventHandler(this.buttonFileRead_Click);
+            // 
+            // buttonTest
+            // 
+            this.buttonTest.Location = new System.Drawing.Point(178, 357);
+            this.buttonTest.Name = "buttonTest";
+            this.buttonTest.Size = new System.Drawing.Size(142, 77);
+            this.buttonTest.TabIndex = 2;
+            this.buttonTest.Text = "Добавить в корзину";
+            this.buttonTest.UseVisualStyleBackColor = true;
+            this.buttonTest.Click += new System.EventHandler(this.buttonAddToCart_Click);
+            // 
+            // dataGridViewProducts
+            // 
+            this.dataGridViewProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewProducts.Location = new System.Drawing.Point(12, 31);
+            this.dataGridViewProducts.Name = "dataGridViewProducts";
+            this.dataGridViewProducts.Size = new System.Drawing.Size(473, 320);
+            this.dataGridViewProducts.TabIndex = 3;
+            this.dataGridViewProducts.SelectionChanged += new System.EventHandler(this.dataGridViewProducts_SelectionChanged);
+            // 
+            // labelCart
+            // 
+            this.labelCart.AutoSize = true;
+            this.labelCart.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.labelCart.ForeColor = System.Drawing.Color.Gray;
+            this.labelCart.Location = new System.Drawing.Point(12, 4);
+            this.labelCart.Name = "labelCart";
+            this.labelCart.Size = new System.Drawing.Size(106, 24);
+            this.labelCart.TabIndex = 4;
+            this.labelCart.Text = "Корзина: 0";
+            // 
+            // buttonCart
+            // 
+            this.buttonCart.Location = new System.Drawing.Point(343, 357);
+            this.buttonCart.Name = "buttonCart";
+            this.buttonCart.Size = new System.Drawing.Size(142, 77);
+            this.buttonCart.TabIndex = 5;
+            this.buttonCart.Text = "Перейти в корзину";
+            this.buttonCart.UseVisualStyleBackColor = true;
+            this.buttonCart.Click += new System.EventHandler(this.buttonCart_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.listViewProducts);
+            this.ClientSize = new System.Drawing.Size(500, 450);
+            this.Controls.Add(this.buttonCart);
+            this.Controls.Add(this.labelCart);
+            this.Controls.Add(this.dataGridViewProducts);
+            this.Controls.Add(this.buttonTest);
+            this.Controls.Add(this.buttonFileRead);
             this.Name = "MainForm";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProducts)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ListView listViewProducts;
+        private System.Windows.Forms.Button buttonFileRead;
+        private System.Windows.Forms.Button buttonTest;
+        private System.Windows.Forms.DataGridView dataGridViewProducts;
+        private System.Windows.Forms.Label labelCart;
+        private System.Windows.Forms.Button buttonCart;
     }
 }
 
